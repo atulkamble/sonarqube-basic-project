@@ -1,170 +1,323 @@
-# app.py
 # ============================================================
-# SonarQube Basic Practice Project
+# SONARQUBE PRACTICE PROJECT
 #
-# Practice:
+# Intentionally contains:
 # - Bugs
-# - Vulnerabilities
+# - Vulnerabilities / Security Issues
 # - Security Hotspots
 # - Code Smells
-# - Coverage
-# - Duplications
+# - Uncovered Code
+# - Duplicated Code
 #
-# WARNING: Intentionally bad/insecure code for SonarQube practice.
+# FOR TRAINING ONLY
 # ============================================================
 
 import os
 import subprocess
+import hashlib
+import random
 
 
 # ============================================================
-# 1. BUGS
+# BUGS
 # ============================================================
 
-def divide(a, b):
-    # BUG: No check for division by zero
+def divide_numbers(a, b):
+    # BUG PRACTICE:
+    # Possible division by zero
     return a / b
 
 
-def get_user(users, index):
-    # BUG: Index is not validated
-    return users[index]
+def get_first_character(name):
+    # BUG PRACTICE:
+    # Empty string can cause IndexError
+    return name[0]
+
+
+def get_item(items, position):
+    # BUG PRACTICE:
+    # Position is not validated
+    return items[position]
+
+
+def calculate_average(numbers):
+    # BUG PRACTICE:
+    # Empty list causes division by zero
+    return sum(numbers) / len(numbers)
 
 
 # ============================================================
-# 2. VULNERABILITIES
+# VULNERABILITIES / SECURITY ISSUES
 # ============================================================
 
-def database_connection():
-    # VULNERABILITY:
-    # Hard-coded credentials should not be stored in source code
-
-    username = "admin"
-    password = "admin123"
-
-    print("Username:", username)
-    print("Password:", password)
+def execute_user_command(command):
+    # SECURITY:
+    # User-controlled command passed directly to OS shell
+    os.system(command)
 
 
-def run_command(user_input):
-    # VULNERABILITY:
-    # User input is passed directly to the operating system
-    # Command injection may be possible
+def execute_shell_command(command):
+    # SECURITY:
+    # shell=True with external input is dangerous
+    subprocess.run(command, shell=True)
 
-    os.system(user_input)
+
+def login(username, password):
+
+    # SECURITY:
+    # Hard-coded password
+    admin_password = "Admin@123456"
+
+    if username == "admin" and password == admin_password:
+        print("Login successful")
+    else:
+        print("Login failed")
 
 
 # ============================================================
-# 3. SECURITY HOTSPOTS
+# SECURITY HOTSPOTS
 # ============================================================
 
-def execute_backup():
+def generate_token():
+
     # SECURITY HOTSPOT:
-    # shell=True executes the command through a system shell
-    # This security-sensitive operation should be reviewed
+    # random is not suitable for security-sensitive tokens
 
-    subprocess.run(
-        "echo Creating backup",
-        shell=True
-    )
+    token = random.randint(100000, 999999)
+
+    return token
+
+
+def hash_password(password):
+
+    # SECURITY HOTSPOT:
+    # MD5 is weak for password hashing
+
+    result = hashlib.md5(password.encode())
+
+    return result.hexdigest()
+
+
+def delete_file(filename):
+
+    # SECURITY-SENSITIVE FILE OPERATION
+
+    os.remove(filename)
 
 
 # ============================================================
-# 4. CODE SMELLS / TECHNICAL DEBT
+# CODE SMELLS
 # ============================================================
 
-def calculate_total(price, quantity):
+def calculate_price(price, quantity):
 
     # CODE SMELL:
-    # Variable created but never used
-    unused_variable = "Not Required"
+    # Unused variable
+
+    unused_message = "Calculating price"
 
     total = price * quantity
 
     # CODE SMELL:
-    # Deeply nested conditions reduce readability
+    # Deep nested conditions
 
-    if total > 1000:
-        if total > 2000:
-            if total > 3000:
-                print("Very expensive")
+    if total > 100:
+        if total > 200:
+            if total > 300:
+                if total > 400:
+                    if total > 500:
+                        print("Large order")
 
     return total
 
 
-def check_number(number):
+def check_score(score):
 
     # CODE SMELL:
-    # Repetitive conditional logic
+    # Repetitive conditions
 
-    if number > 10:
+    if score > 10:
         print("Greater than 10")
 
-    if number > 20:
+    if score > 20:
         print("Greater than 20")
 
-    if number > 30:
+    if score > 30:
         print("Greater than 30")
 
-    if number > 40:
+    if score > 40:
         print("Greater than 40")
+
+    if score > 50:
+        print("Greater than 50")
+
+    if score > 60:
+        print("Greater than 60")
+
+
+def very_long_function(number):
+
+    # CODE SMELL:
+    # Function intentionally contains unnecessary/repetitive logic
+
+    result = number
+
+    result = result + 1
+    result = result + 2
+    result = result + 3
+    result = result + 4
+    result = result + 5
+    result = result + 6
+    result = result + 7
+    result = result + 8
+    result = result + 9
+    result = result + 10
+
+    if result > 10:
+        print("10")
+
+    if result > 20:
+        print("20")
+
+    if result > 30:
+        print("30")
+
+    if result > 40:
+        print("40")
+
+    if result > 50:
+        print("50")
+
+    return result
 
 
 # ============================================================
-# 5. DUPLICATIONS
+# DUPLICATED CODE - BLOCK 1
 # ============================================================
 
 def employee_report():
 
-    # DUPLICATED CODE
+    name = "Atul"
+    employee_id = 101
+    department = "Cloud"
+    company = "Cloudnautic"
+    location = "Pune"
+    country = "India"
+    role = "Engineer"
+    salary = 50000
 
-    name = "Employee"
-    department = "IT"
-    company = "Cloud Company"
-
-    print("==========================")
-    print("Employee Report")
-    print("==========================")
+    print("=================================")
+    print("Employee Information")
+    print("=================================")
     print("Name:", name)
+    print("Employee ID:", employee_id)
     print("Department:", department)
     print("Company:", company)
-    print("==========================")
+    print("Location:", location)
+    print("Country:", country)
+    print("Role:", role)
+    print("Salary:", salary)
+    print("=================================")
+    print("Report Generated Successfully")
+    print("=================================")
 
+
+# ============================================================
+# DUPLICATED CODE - BLOCK 2
+# ============================================================
 
 def manager_report():
 
-    # DUPLICATED CODE
-
     name = "Manager"
-    department = "IT"
-    company = "Cloud Company"
+    employee_id = 102
+    department = "Cloud"
+    company = "Cloudnautic"
+    location = "Pune"
+    country = "India"
+    role = "Manager"
+    salary = 80000
 
-    print("==========================")
-    print("Employee Report")
-    print("==========================")
+    print("=================================")
+    print("Employee Information")
+    print("=================================")
     print("Name:", name)
+    print("Employee ID:", employee_id)
     print("Department:", department)
     print("Company:", company)
-    print("==========================")
+    print("Location:", location)
+    print("Country:", country)
+    print("Role:", role)
+    print("Salary:", salary)
+    print("=================================")
+    print("Report Generated Successfully")
+    print("=================================")
 
 
 # ============================================================
-# 6. COVERAGE
+# DUPLICATED CODE - BLOCK 3
+# ============================================================
+
+def developer_report():
+
+    name = "Developer"
+    employee_id = 103
+    department = "Cloud"
+    company = "Cloudnautic"
+    location = "Pune"
+    country = "India"
+    role = "Developer"
+    salary = 60000
+
+    print("=================================")
+    print("Employee Information")
+    print("=================================")
+    print("Name:", name)
+    print("Employee ID:", employee_id)
+    print("Department:", department)
+    print("Company:", company)
+    print("Location:", location)
+    print("Country:", country)
+    print("Role:", role)
+    print("Salary:", salary)
+    print("=================================")
+    print("Report Generated Successfully")
+    print("=================================")
+
+
+# ============================================================
+# COVERAGE PRACTICE
 # ============================================================
 
 def add(a, b):
-    # Create test case for this function
     return a + b
 
 
 def subtract(a, b):
-    # Leave without test to demonstrate uncovered code
     return a - b
 
 
 def multiply(a, b):
-    # Leave without test to demonstrate uncovered code
     return a * b
+
+
+def square(number):
+    return number * number
+
+
+def cube(number):
+    return number * number * number
+
+
+def percentage(value, total):
+    return (value / total) * 100
+
+
+def calculate_tax(amount):
+    return amount * 0.18
+
+
+def calculate_discount(amount):
+    return amount * 0.10
 
 
 # ============================================================
@@ -173,20 +326,32 @@ def multiply(a, b):
 
 if __name__ == "__main__":
 
-    print("===== SonarQube Practice Project =====")
+    print("SonarQube Practice Project")
 
-    print("Addition:", add(10, 5))
+    print(add(10, 5))
 
-    print("Division:", divide(10, 5))
+    print(divide_numbers(10, 2))
 
-    database_connection()
+    print(get_first_character("SonarQube"))
 
-    calculate_total(500, 10)
+    print(get_item(["AWS", "Azure", "DevOps"], 1))
 
-    check_number(50)
+    print(calculate_average([10, 20, 30]))
+
+    login("admin", "Admin@123456")
+
+    print("Token:", generate_token())
+
+    print("Hash:", hash_password("password123"))
+
+    calculate_price(100, 10)
+
+    check_score(70)
+
+    very_long_function(10)
 
     employee_report()
 
     manager_report()
 
-    execute_backup()
+    developer_report()
