@@ -1,14 +1,6 @@
 pipeline {
     agent any
 
-    SonarQube {
-        installationName = 'MySonar'
-    }
-
-    SonarQubeScanner {
-        installationName = 'MySonarScanner'
-    }
-
     stages {
 
         stage('Git Checkout') {
@@ -20,14 +12,16 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh '''
-                        sonar-scanner \
-                        -Dsonar.projectKey=sonarqube-basic-project \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://3.81.167.42:9000 \
-                        -Dsonar.login=sqp_3583b20d8c11acd28d6b7c7a8ca1c3d367e57c29
-                    '''
+                script {
+                    def scannerHome = tool 'MySonarScanner'
+
+                    withSonarQubeEnv('MySonar') {
+                        sh """
+                            ${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=sonarqube-basic-project \
+                            -Dsonar.sources=.
+                        """
+                    }
                 }
             }
         }
