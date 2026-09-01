@@ -1,17 +1,9 @@
-# test_app.py
-# ============================================================
-# SonarQube Coverage Practice
-#
-# Only selected functions are tested intentionally.
-# Other functions remain uncovered.
-# ============================================================
-
-from app import add, divide
+from app import add
 
 
 def test_add():
+
+    # Only one function is tested intentionally.
+    # Other functions remain uncovered.
+
     assert add(10, 5) == 15
-
-
-def test_divide():
-    assert divide(10, 5) == 2
