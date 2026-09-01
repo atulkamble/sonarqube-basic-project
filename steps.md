@@ -1,3 +1,4 @@
+```
 // jenkins server 
 
 git clone https://github.com/atulkamble/ec2-jenkins
@@ -45,9 +46,44 @@ sonar-scanner \
   -Dsonar.host.url=http://3.81.167.42:9000 \
   -Dsonar.login=sqp_3583b20d8c11acd28d6b7c7a8ca1c3d367e57c29
 
-7. 
+7. // run pipeline with github
 
-curl -u 'sqp_3583b20d8c11acd28d6b7c7a8ca1c3d367e57c29:' \
-"http://3.81.167.42:9000/api/permissions/users?projectKey=python-basic-project"
+// fork and clone project, maintain project code from your side
+https://github.com/atulkamble/sonarqube-basic-project
 
+8. // Pipeline Run and add following settings
+
+Manage Jenkins → Tools → SonarQube Scanner installations
+Name: mySonar
+☑ Install automatically
+
+Then separately configure the SonarQube server connection:
+Manage Jenkins → System → SonarQube installations
+
+Name: MySonar
+Server URL: http://3.82.58.85:9000
+Server authentication token: >> Add Following Settings 
+
+Add Credentials → Select a type of credential
+
+Kind:        Secret text
+Scope:       Global
+Secret:      sqp_3583b20d8c11acd28d6b7c7a8ca1c3d367e57c29
+ID:          sonar-token
+Description: SonarQube Authentication Token
+
+
+def scannerHome = tool 'mySonar'
+
+withSonarQubeEnv('MySonar') {
+    sh """
+        ${scannerHome}/bin/sonar-scanner \
+        -Dsonar.projectKey=sonarqube-basic-project \
+        -Dsonar.sources=.
+    """
+}
+
+
+
+```
 
