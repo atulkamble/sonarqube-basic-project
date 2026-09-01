@@ -1,15 +1,13 @@
 # ============================================================
-# SONARQUBE PRACTICE PROJECT
+# SONARQUBE BASIC PRACTICE PROJECT
 #
 # Intentionally contains:
-# - Bugs
-# - Vulnerabilities / Security Issues
 # - Security Hotspots
 # - Code Smells
-# - Uncovered Code
+# - Coverage gaps
 # - Duplicated Code
 #
-# FOR TRAINING ONLY
+# FOR TRAINING / PRACTICE ONLY
 # ============================================================
 
 import os
@@ -19,53 +17,45 @@ import random
 
 
 # ============================================================
-# BUGS
+# BASIC BUG-LIKE PRACTICE
 # ============================================================
 
 def divide_numbers(a, b):
-    # BUG PRACTICE:
-    # Possible division by zero
+    # No zero validation
     return a / b
 
 
 def get_first_character(name):
-    # BUG PRACTICE:
     # Empty string can cause IndexError
     return name[0]
 
 
 def get_item(items, position):
-    # BUG PRACTICE:
-    # Position is not validated
+    # Invalid position can cause IndexError
     return items[position]
 
 
 def calculate_average(numbers):
-    # BUG PRACTICE:
-    # Empty list causes division by zero
+    # Empty list can cause division by zero
     return sum(numbers) / len(numbers)
 
 
 # ============================================================
-# VULNERABILITIES / SECURITY ISSUES
+# SECURITY PRACTICE
 # ============================================================
 
 def execute_user_command(command):
-    # SECURITY:
-    # User-controlled command passed directly to OS shell
+    # Security-sensitive command execution
     os.system(command)
 
 
 def execute_shell_command(command):
-    # SECURITY:
-    # shell=True with external input is dangerous
+    # shell=True is security-sensitive
     subprocess.run(command, shell=True)
 
 
 def login(username, password):
-
-    # SECURITY:
-    # Hard-coded password
+    # Hard-coded password for practice
     admin_password = "Admin@123456"
 
     if username == "admin" and password == admin_password:
@@ -79,30 +69,25 @@ def login(username, password):
 # ============================================================
 
 def generate_token():
-
-    # SECURITY HOTSPOT:
-    # random is not suitable for security-sensitive tokens
-
+    # random should not be used for security tokens
     token = random.randint(100000, 999999)
 
     return token
 
 
 def hash_password(password):
-
-    # SECURITY HOTSPOT:
     # MD5 is weak for password hashing
-
     result = hashlib.md5(password.encode())
 
     return result.hexdigest()
 
 
-def delete_file(filename):
-
-    # SECURITY-SENSITIVE FILE OPERATION
-
-    os.remove(filename)
+def execute_backup():
+    # shell=True should be reviewed
+    subprocess.run(
+        "echo Creating backup",
+        shell=True
+    )
 
 
 # ============================================================
@@ -111,16 +96,12 @@ def delete_file(filename):
 
 def calculate_price(price, quantity):
 
-    # CODE SMELL:
     # Unused variable
-
     unused_message = "Calculating price"
 
     total = price * quantity
 
-    # CODE SMELL:
-    # Deep nested conditions
-
+    # Deeply nested code
     if total > 100:
         if total > 200:
             if total > 300:
@@ -132,9 +113,6 @@ def calculate_price(price, quantity):
 
 
 def check_score(score):
-
-    # CODE SMELL:
-    # Repetitive conditions
 
     if score > 10:
         print("Greater than 10")
@@ -156,9 +134,6 @@ def check_score(score):
 
 
 def very_long_function(number):
-
-    # CODE SMELL:
-    # Function intentionally contains unnecessary/repetitive logic
 
     result = number
 
@@ -195,93 +170,96 @@ def very_long_function(number):
 # DUPLICATED CODE - BLOCK 1
 # ============================================================
 
-def employee_report():
+def report_one():
 
-    name = "Atul"
-    employee_id = 101
-    department = "Cloud"
-    company = "Cloudnautic"
-    location = "Pune"
-    country = "India"
-    role = "Engineer"
-    salary = 50000
-
-    print("=================================")
-    print("Employee Information")
-    print("=================================")
-    print("Name:", name)
-    print("Employee ID:", employee_id)
-    print("Department:", department)
-    print("Company:", company)
-    print("Location:", location)
-    print("Country:", country)
-    print("Role:", role)
-    print("Salary:", salary)
-    print("=================================")
+    print("================================")
+    print("Cloud Training Report")
+    print("================================")
+    print("Course: Cloud DevOps")
+    print("Trainer: Atul")
+    print("Location: Pune")
+    print("Mode: Online")
+    print("Technology: AWS")
+    print("Technology: Azure")
+    print("Technology: Linux")
+    print("Technology: Git")
+    print("Technology: Jenkins")
+    print("Technology: Docker")
+    print("Technology: Kubernetes")
+    print("Technology: Terraform")
+    print("Technology: Ansible")
+    print("Technology: SonarQube")
+    print("Status: Active")
+    print("Duration: 3 Months")
+    print("Environment: Training")
+    print("Project: DevOps Practice")
+    print("================================")
     print("Report Generated Successfully")
-    print("=================================")
+    print("================================")
 
 
 # ============================================================
 # DUPLICATED CODE - BLOCK 2
 # ============================================================
 
-def manager_report():
+def report_two():
 
-    name = "Manager"
-    employee_id = 102
-    department = "Cloud"
-    company = "Cloudnautic"
-    location = "Pune"
-    country = "India"
-    role = "Manager"
-    salary = 80000
-
-    print("=================================")
-    print("Employee Information")
-    print("=================================")
-    print("Name:", name)
-    print("Employee ID:", employee_id)
-    print("Department:", department)
-    print("Company:", company)
-    print("Location:", location)
-    print("Country:", country)
-    print("Role:", role)
-    print("Salary:", salary)
-    print("=================================")
+    print("================================")
+    print("Cloud Training Report")
+    print("================================")
+    print("Course: Cloud DevOps")
+    print("Trainer: Atul")
+    print("Location: Pune")
+    print("Mode: Online")
+    print("Technology: AWS")
+    print("Technology: Azure")
+    print("Technology: Linux")
+    print("Technology: Git")
+    print("Technology: Jenkins")
+    print("Technology: Docker")
+    print("Technology: Kubernetes")
+    print("Technology: Terraform")
+    print("Technology: Ansible")
+    print("Technology: SonarQube")
+    print("Status: Active")
+    print("Duration: 3 Months")
+    print("Environment: Training")
+    print("Project: DevOps Practice")
+    print("================================")
     print("Report Generated Successfully")
-    print("=================================")
+    print("================================")
 
 
 # ============================================================
 # DUPLICATED CODE - BLOCK 3
 # ============================================================
 
-def developer_report():
+def report_three():
 
-    name = "Developer"
-    employee_id = 103
-    department = "Cloud"
-    company = "Cloudnautic"
-    location = "Pune"
-    country = "India"
-    role = "Developer"
-    salary = 60000
-
-    print("=================================")
-    print("Employee Information")
-    print("=================================")
-    print("Name:", name)
-    print("Employee ID:", employee_id)
-    print("Department:", department)
-    print("Company:", company)
-    print("Location:", location)
-    print("Country:", country)
-    print("Role:", role)
-    print("Salary:", salary)
-    print("=================================")
+    print("================================")
+    print("Cloud Training Report")
+    print("================================")
+    print("Course: Cloud DevOps")
+    print("Trainer: Atul")
+    print("Location: Pune")
+    print("Mode: Online")
+    print("Technology: AWS")
+    print("Technology: Azure")
+    print("Technology: Linux")
+    print("Technology: Git")
+    print("Technology: Jenkins")
+    print("Technology: Docker")
+    print("Technology: Kubernetes")
+    print("Technology: Terraform")
+    print("Technology: Ansible")
+    print("Technology: SonarQube")
+    print("Status: Active")
+    print("Duration: 3 Months")
+    print("Environment: Training")
+    print("Project: DevOps Practice")
+    print("================================")
     print("Report Generated Successfully")
-    print("=================================")
+    print("================================")
 
 
 # ============================================================
@@ -326,32 +304,52 @@ def calculate_discount(amount):
 
 if __name__ == "__main__":
 
-    print("SonarQube Practice Project")
+    print("===== SonarQube Practice Project =====")
 
-    print(add(10, 5))
+    print("Addition:", add(10, 5))
 
-    print(divide_numbers(10, 2))
+    print("Division:", divide_numbers(10, 2))
 
-    print(get_first_character("SonarQube"))
+    print("First Character:", get_first_character("SonarQube"))
 
-    print(get_item(["AWS", "Azure", "DevOps"], 1))
+    print(
+        "Selected Item:",
+        get_item(["AWS", "Azure", "DevOps"], 1)
+    )
 
-    print(calculate_average([10, 20, 30]))
+    print(
+        "Average:",
+        calculate_average([10, 20, 30])
+    )
 
-    login("admin", "Admin@123456")
+    login(
+        "admin",
+        "Admin@123456"
+    )
 
-    print("Token:", generate_token())
+    print(
+        "Generated Token:",
+        generate_token()
+    )
 
-    print("Hash:", hash_password("password123"))
+    print(
+        "Password Hash:",
+        hash_password("password123")
+    )
 
-    calculate_price(100, 10)
+    calculate_price(
+        100,
+        10
+    )
 
     check_score(70)
 
     very_long_function(10)
 
-    employee_report()
+    execute_backup()
 
-    manager_report()
+    report_one()
 
-    developer_report()
+    report_two()
+
+    report_three()
