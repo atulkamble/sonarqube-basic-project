@@ -1,6 +1,14 @@
 pipeline {
     agent any
 
+    SonarQube {
+        installationName = 'MySonar'
+    }
+
+    SonarQubeScanner {
+        installationName = 'MySonarScanner'
+    }
+
     stages {
 
         stage('Git Checkout') {
