@@ -10,6 +10,19 @@ pipeline {
             }
         }
 
+        stage('Check Python') {
+            steps {
+                sh '''
+                    python3 --version
+
+                    if ! python3 -m pip --version >/dev/null 2>&1; then
+                        echo "pip is not installed"
+                        exit 1
+                    fi
+                '''
+            }
+        }
+
         stage('Install Test Dependencies') {
             steps {
                 sh '''
@@ -24,6 +37,8 @@ pipeline {
                     python3 -m pytest \
                     --cov=app \
                     --cov-report=xml
+
+                    ls -l coverage.xml
                 '''
             }
         }
